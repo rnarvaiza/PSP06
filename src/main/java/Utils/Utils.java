@@ -1,10 +1,8 @@
 package Utils;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 
 public class Utils {
@@ -58,24 +56,6 @@ public class Utils {
         }
     }
 
-    public void decryptFileWithPrivateKey(){
-        byte[] buffer;
-        try {
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.DECRYPT_MODE, getPrivKey());
-            buffer = cipher.doFinal(readFile());
-            if(buffer.length<0){
-
-            }
-            else {
-                System.out.println("##Info de ejecución del programa de desencriptado## \n Este es el mensaje desencriptado: " + buffer);
-            }
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
-            System.out.println("##Info de ejecución del programa de desencriptado## " + e.getMessage());
-        }
-
-
-    }
 
     public static void mostrarBytes(byte[] buffer) throws IOException {
         System.out.write(buffer);
