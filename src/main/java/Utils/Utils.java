@@ -44,7 +44,7 @@ public class Utils {
             System.out.println("\nSe ha cifrado el mensaje: ");
             mostrarBytes(cipherBuffer);
             cipher.init(Cipher.DECRYPT_MODE, getPrivKey());
-            buffer = cipher.doFinal(readFile());
+            buffer = cipher.doFinal(readFile(file));
             System.out.println("\nSe ha descifrado el mensaje: ");
             mostrarBytes(buffer);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | IOException e) {
@@ -60,6 +60,8 @@ public class Utils {
     public static void mostrarBytes(byte[] buffer) throws IOException {
         System.out.write(buffer);
     }
+
+
 
     public static boolean writeFile(byte[] buffer) throws IOException {
 
@@ -77,7 +79,7 @@ public class Utils {
         return correcto;
     }
 
-    public byte[] readFile(){
+    public byte[] readFile(File file){
 
         byte[] encryptedBuffer = new byte[(int) file.length()];
 
