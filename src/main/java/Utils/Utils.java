@@ -2,8 +2,13 @@ package Utils;
 
 import javax.crypto.*;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
+
+/**
+ * @author RNarvaiza
+ *
+ * Sandbox for implements encrypt&decrypt texts with public&private keys
+ */
 
 public class Utils {
 
@@ -12,10 +17,10 @@ public class Utils {
     private static PrivateKey privKey = null;
     public static File file = new File(RESOURCES_PATH + "fichero.cifrado");
 
-    public static File fileCreator(){
-        File fileBase = new File(RESOURCES_PATH);
-        return fileBase;
-    }
+
+    /**
+     * Function designed to generate an instance of KeyPair with a given algorithm.
+     */
     public void keyPairGenerator(){
         KeyPairGenerator kpg = null;
         try {
@@ -30,6 +35,12 @@ public class Utils {
         setPrivKey(kp.getPrivate());
         setPubKey(kp.getPublic());
     }
+
+    /**
+     * Function designed to collect a string , use a designed encryption method and encrypt.
+     * After the encryption function will write on file and then call to a reader and decrypt with the given private key.
+     * @param bufferNoSecure
+     */
 
     public void encryptAndDecryptFileWithPublicKey(byte[] bufferNoSecure){
             boolean escribe = true;
@@ -57,13 +68,13 @@ public class Utils {
     }
 
 
-    public static void mostrarBytes(byte[] buffer) throws IOException {
+    public static void mostrarBytes(byte[] buffer) throws IOException {//Printer
         System.out.write(buffer);
     }
 
 
 
-    public static boolean writeFile(byte[] buffer) throws IOException {
+    public static boolean writeFile(byte[] buffer) throws IOException {//FileWriter declared on try with resources
 
 
         boolean correcto = false;
@@ -79,21 +90,22 @@ public class Utils {
         return correcto;
     }
 
-    public byte[] readFile(File file){
+    public byte[] readFile(File file){//Reader declared on try with resources
 
         byte[] encryptedBuffer = new byte[(int) file.length()];
 
         try (FileInputStream fileInputStream = new FileInputStream(file);){
             fileInputStream.read(encryptedBuffer);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return encryptedBuffer;
     }
 
+    //Getters & Setters.
 
     public PublicKey getPubKey() {
         return pubKey;
